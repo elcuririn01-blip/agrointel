@@ -1,0 +1,119 @@
+[
+  {
+    "id": "campo",
+    "code": "01",
+    "label": "Visitas Técnicas e Campo",
+    "shortDescription": "A visita acaba no campo, mas o trabalho continua no escritório. Estas Skills pegam áudio de caminhonete, foto sem legenda e anotação de prancheta e devolvem relatório, registro por talhão e lista de pendências com responsável.",
+    "iconName": "ClipboardCheck",
+    "color": "#4D7C45",
+    "count": 10
+  },
+  {
+    "id": "planejamento",
+    "code": "02",
+    "label": "Planejamento Agronômico",
+    "shortDescription": "O que decide a safra antes dela começar. Estas Skills organizam calendário, atividades, recursos e cenários — com janela agronômica, dependência entre operações e a restrição de máquina que ninguém lembra na hora de planejar.",
+    "iconName": "CalendarCheck",
+    "color": "#234D32",
+    "count": 10
+  },
+  {
+    "id": "custos",
+    "code": "03",
+    "label": "Custos, Orçamentos e Viabilidade",
+    "shortDescription": "Onde o erro custa dinheiro de verdade. Estas Skills organizam custo por hectare, orçamento de safra, comparativo de insumo e cenário financeiro — com a premissa sempre à vista e o preço sempre datado, porque cotação envelhece em semanas.",
+    "iconName": "DollarSign",
+    "color": "#D2A63C",
+    "count": 10
+  },
+  {
+    "id": "produtores",
+    "code": "04",
+    "label": "Produtores, Propostas e Comunicação",
+    "shortDescription": "A relação que sustenta o contrato. Estas Skills organizam a entrada do produtor, a reunião, a proposta e o retorno — em linguagem que ele lê no celular, sem jargão e sem promessa que a lavoura não pode cumprir.",
+    "iconName": "Users",
+    "color": "#795548",
+    "count": 10
+  },
+  {
+    "id": "gestao",
+    "code": "05",
+    "label": "Documentação e Gestão",
+    "shortDescription": "O escritório como negócio, e o arquivo como proteção. Estas Skills organizam carteira, semana, procedimento, evidência e documentação para crédito rural — a parte que ninguém vê e que sustenta tudo quando alguém questiona.",
+    "iconName": "FolderKanban",
+    "color": "#22A75A",
+    "count": 10
+  },
+  {
+    "id": "receituario",
+    "code": "06",
+    "label": "Receituário e Defensivos",
+    "shortDescription": "Receita no padrão CONFEA 1.149, conferência com a nota fiscal e o Agrofit, MIP, programa fitossanitário, daninhas, ordem de serviço do aplicador e relatório de drone.",
+    "iconName": "ShieldAlert",
+    "color": "#B91C1C",
+    "count": 9
+  },
+  {
+    "id": "credito",
+    "code": "07",
+    "label": "Crédito Rural e Seguro",
+    "shortDescription": "Prodes e CAR antes do banco, checklist do Plano Safra 26/27, custo para o banco, enquadramento, viabilidade, ZARC, comunicação de perdas e prorrogação de dívida.",
+    "iconName": "Landmark",
+    "color": "#1D4ED8",
+    "count": 9
+  },
+  {
+    "id": "laudos",
+    "code": "08",
+    "label": "Laudos, Perícias e Avaliações",
+    "shortDescription": "Fiscalização bancária, perdas do Proagro, perícia judicial, assistente técnico, avaliação de imóvel rural, deriva, dano por insumo e estimativa de safra.",
+    "iconName": "FileCheck",
+    "color": "#7C3AED",
+    "count": 9
+  },
+  {
+    "id": "ambiental",
+    "code": "09",
+    "label": "Ambiental, Terra e Rastreabilidade",
+    "shortDescription": "PRA e PRAD, dossiê EUDR, retificação do CAR, memorial para o SIGEF, outorga de água, CFO e CFOC e conversão para orgânico.",
+    "iconName": "Trees",
+    "color": "#0F766E",
+    "count": 7
+  },
+  {
+    "id": "consultoria",
+    "code": "10",
+    "label": "Consultoria, Comercial e ATER",
+    "shortDescription": "Proposta e contrato pela tabela do CREA, ART, mensagem técnica à carteira, comercialização, barter, relatório de valor, RTV, dia de campo, ATER, PNAE e PAA.",
+    "iconName": "Briefcase",
+    "color": "#C2410C",
+    "count": 10
+  },
+  {
+    "id": "manejo",
+    "code": "11",
+    "label": "Recomendação Técnica e Manejo",
+    "shortDescription": "Calagem e adubação pelo manual do estado, taxa variável, cultivar e população, refúgio Bt, bioinsumo on farm, quebra de produtividade, implantação de perene e classificação de grãos.",
+    "iconName": "Sprout",
+    "color": "#4D7C0F",
+    "count": 8
+  },
+  {
+    "id": "pecuaria",
+    "code": "12",
+    "label": "Pastagem e Pecuária",
+    "shortDescription": "Recuperação de pastagem, balanço forrageiro e silagem, e projeção de evolução do rebanho.",
+    "iconName": "Beef",
+    "color": "#92400E",
+    "count": 3
+  },
+  {
+    "id": "master",
+    "code": "13",
+    "label": "Skills Master",
+    "shortDescription": "Fluxos de ponta a ponta que encadeiam várias Skills numa entrega só: o raio-X da propriedade, a visita completa e a safra completa.",
+    "iconName": "Award",
+    "color": "#A21CAF",
+    "count": 3
+  }
+]

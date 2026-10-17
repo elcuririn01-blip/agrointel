@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-dark: #071A12;
+    --bg-dark-surface: #091C13;
+    --bg-dark-pane: #0F2D1F;
+    --bg-dark-card: rgba(7, 26, 18, 0.7);
+    --bg-dark-border: rgba(255, 255, 255, 0.08);
+
+    --primary: #10B981;
+    --primary-hover: #059669;
+    --primary-mint: #34D399;
+    --primary-subtle: rgba(16, 185, 129, 0.15);
+    --primary-border: rgba(16, 185, 129, 0.3);
+
+    --accent-gold: #F59E0B;
+    --accent-gold-text: #FBBF24;
+    --accent-gold-subtle: rgba(245, 158, 11, 0.15);
+    --accent-gold-border: rgba(245, 158, 11, 0.3);
+
+    --text-white: #FFFFFF;
+    --text-slate: #CBD5E1;
+    --text-muted: #94A3B8;
+    --text-dim: #64748B;
+  }
+
+  body {
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Sales Page Demonstration Card Styling */
+.sales-card {
+  background: rgba(7, 26, 18, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: all 0.2s ease-in-out;
+}
+
+.sales-card:hover {
+  border-color: rgba(16, 185, 129, 0.4);
+  background: rgba(9, 32, 22, 0.85);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+}
+
+.sales-card-active {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+/* Recommendation & Context Box from Sales Page */
+.sales-rec-box {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 13px;
+  color: #E2E8F0;
+  line-height: 1.6;
+}
+
+.sales-rec-box strong {
+  color: #34D399;
+}
+
+/* Badges from Sales Page */
+.badge-agro {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.badge-agro-gold {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #FBBF24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Buttons from Sales Page */
+.btn-agro-primary {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
+  font-weight: 800;
+  border-radius: 12px;
+  padding: 12px 24px;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-agro-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(16, 185, 129, 0.4);
+  background: linear-gradient(135deg, #34D399 0%, #059669 100%);
+}
+
+.btn-agro-gold {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #000000;
+  font-weight: 800;
+  border-radius: 12px;
+  padding: 10px 20px;
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.25);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-agro-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 25px rgba(245, 158, 11, 0.35);
+  background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+}
+
+.btn-agro-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.btn-agro-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+/* Sales Page Form Inputs */
+.sales-input {
+  background: #081D14;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.sales-input:focus {
+  outline: none;
+  border-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  background: #0B251A;
+}
+
+.sales-input::placeholder {
+  color: #64748B;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #071A12;
+}
+::-webkit-scrollbar-thumb {
+  background: #123326;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #10B981;
+}
+
+/* Code & Terminal */
+pre, code {
+  font-family: 'JetBrains Mono', monospace;
+}
