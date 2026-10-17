@@ -9,10 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Altere os links abaixo conforme sua plataforma de pagamento (Hotmart, Kiwify, Payt, etc.)
   // ==========================================
   const CHECKOUT_CONFIG = {
-    // Plano PRO Completo (R$ 97,00)
-    CHECKOUT_PRO_URL: 'https://checkout.payt.com.br/09e26c8d4ed0ed3a6514410cfb87c038',
-    // Plano Start (R$ 47,00)
-    CHECKOUT_START_URL: 'https://checkout.payt.com.br/edaf0b3ca4eca8b1f5fe2fae82647f89'
+    // Plano PRO Completo (R$ 67,90)
+    CHECKOUT_PRO_URL: 'https://pay.wiapy.com/wlyxLo3btUxL',
+    // Plano Start (R$ 47,90)
+    CHECKOUT_START_URL: 'https://pay.wiapy.com/h--uxvdcYBHP'
   };
 
   // Aplica os links aos botões correspondentes
