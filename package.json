@@ -1,5 +1,9 @@
 {
-  "dependencies": {
-    "sharp": "^0.35.5"
+  "name": "agrointel-pro",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "node build-vercel.js",
+    "start": "node server.js"
   }
 }
