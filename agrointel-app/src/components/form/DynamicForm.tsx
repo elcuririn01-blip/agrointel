@@ -8,6 +8,7 @@ import {
   SlidersHorizontal,
 } from 'lucide-react';
 import { Skill, SkillField } from '../../types';
+import { storageService } from '../../services/storageService';
 
 interface DynamicFormProps {
   skill: Skill;
@@ -21,9 +22,10 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   onSubmit,
 }) => {
   const [formData, setFormData] = useState<Record<string, any>>(() => {
+    const savedDraft = storageService.getSkillDraft(skill.id);
     const defaults: Record<string, any> = {};
     skill.fields.forEach(field => {
-      defaults[field.id] = initialValues?.[field.id] ?? field.defaultValue ?? '';
+      defaults[field.id] = initialValues?.[field.id] ?? savedDraft?.[field.id] ?? field.defaultValue ?? '';
     });
     return defaults;
   });
@@ -36,6 +38,14 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
       setFormData(prev => ({ ...prev, ...initialValues }));
     }
   }, [initialValues]);
+
+  // Salva rascunho automaticamente no celular/computador
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      storageService.saveSkillDraft(skill.id, formData);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [formData, skill.id]);
 
   const handleChange = (fieldId: string, value: any) => {
     setFormData(prev => ({ ...prev, [fieldId]: value }));
@@ -56,6 +66,7 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
   };
 
   const handleReset = () => {
+    storageService.clearSkillDraft(skill.id);
     const cleared: Record<string, any> = {};
     skill.fields.forEach(f => {
       cleared[f.id] = f.defaultValue ?? '';
@@ -99,9 +110,15 @@ export const DynamicForm: React.FC<DynamicFormProps> = ({
             <SlidersHorizontal className="w-4 h-4" />
           </div>
           <div>
-            <strong className="block text-white">Preenchimento de Variáveis Agronômicas</strong>
+            <div className="flex items-center space-x-2">
+              <strong className="block text-white">Preenchimento de Variáveis Agronômicas</strong>
+              <span className="inline-flex items-center space-x-1 text-[10px] text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Salvo no seu celular</span>
+              </span>
+            </div>
             <span className="text-[11px] text-[#94A3B8]">
-              Insira os dados do talhão ou use o botão ao lado para carregar dados reais de campo.
+              Insira os dados do talhão. Suas anotações ficam salvas no seu dispositivo automaticamente.
             </span>
           </div>
         </div>

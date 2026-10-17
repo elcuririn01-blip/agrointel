@@ -116,3 +116,17 @@ export interface UserSettings {
   defaultModel: 'claude' | 'gemini' | 'chatgpt';
   includeDisclaimer: boolean;
 }
+
+export interface NoteEntry {
+  id: string;
+  title: string;
+  content: string;
+  category?: string;
+  farmOrClient?: string;
+  culture?: string;
+  createdAt: string;
+  updatedAt: string;
+  sourceSkillId?: string;
+  sourceSkillName?: string;
+  tags?: string[];
+}

@@ -1,0 +1,26 @@
+{
+  "name": "AgroIntel PRO - Inteligência Agronômica",
+  "short_name": "AgroIntel PRO",
+  "description": "108 Skills e 75 Agentes Especialistas de Inteligência Artificial para o Agronegócio Brasileiro",
+  "start_url": "/app/",
+  "scope": "/app/",
+  "display": "standalone",
+  "background_color": "#071A12",
+  "theme_color": "#064E3B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/app/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/app/logo.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "productivity", "utilities"]
+}

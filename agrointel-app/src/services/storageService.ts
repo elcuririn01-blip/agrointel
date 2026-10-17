@@ -1,9 +1,11 @@
-import { HistoryEntry, UserSettings } from '../types';
+import { HistoryEntry, UserSettings, NoteEntry } from '../types';
 
 const STORAGE_KEYS = {
   HISTORY: 'agrointel_history_v1',
   FAVORITES: 'agrointel_favorites_v1',
   SETTINGS: 'agrointel_settings_v1',
+  NOTES: 'agrointel_notes_v1',
+  DRAFTS: 'agrointel_drafts_v1',
 };
 
 const DEFAULT_SETTINGS: UserSettings = {
@@ -119,12 +121,106 @@ export const storageService = {
     }
   },
 
+  // Notes (Anotações Locais)
+  getNotes(): NoteEntry[] {
+    try {
+      const data = localStorage.getItem(STORAGE_KEYS.NOTES);
+      if (data) {
+        return JSON.parse(data);
+      }
+    } catch (e) {
+      console.error('Failed to load notes', e);
+    }
+    return [];
+  },
+
+  saveNote(noteData: Omit<NoteEntry, 'id' | 'createdAt' | 'updatedAt'> & { id?: string }): NoteEntry {
+    const notes = this.getNotes();
+    const now = new Date().toISOString();
+
+    if (noteData.id) {
+      // Update existing note
+      const index = notes.findIndex(n => n.id === noteData.id);
+      if (index >= 0) {
+        const updatedNote: NoteEntry = {
+          ...notes[index],
+          ...noteData,
+          id: noteData.id,
+          updatedAt: now,
+        };
+        notes[index] = updatedNote;
+        try {
+          localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(notes));
+        } catch (e) {
+          console.error('Failed to save note', e);
+        }
+        return updatedNote;
+      }
+    }
+
+    // Create new note
+    const newNote: NoteEntry = {
+      ...noteData,
+      id: 'note_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    const updated = [newNote, ...notes];
+    try {
+      localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(updated));
+    } catch (e) {
+      console.error('Failed to create note', e);
+    }
+    return newNote;
+  },
+
+  deleteNote(id: string): void {
+    const notes = this.getNotes().filter(n => n.id !== id);
+    try {
+      localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(notes));
+    } catch (e) {
+      console.error('Failed to delete note', e);
+    }
+  },
+
+  // Skill Form Drafts (Auto-save de rascunhos de preenchimento no celular)
+  getSkillDraft(skillId: string): Record<string, any> | null {
+    try {
+      const allDrafts = JSON.parse(localStorage.getItem(STORAGE_KEYS.DRAFTS) || '{}');
+      return allDrafts[skillId] || null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  saveSkillDraft(skillId: string, inputs: Record<string, any>): void {
+    try {
+      const allDrafts = JSON.parse(localStorage.getItem(STORAGE_KEYS.DRAFTS) || '{}');
+      allDrafts[skillId] = inputs;
+      localStorage.setItem(STORAGE_KEYS.DRAFTS, JSON.stringify(allDrafts));
+    } catch (e) {
+      console.error('Failed to save skill draft', e);
+    }
+  },
+
+  clearSkillDraft(skillId: string): void {
+    try {
+      const allDrafts = JSON.parse(localStorage.getItem(STORAGE_KEYS.DRAFTS) || '{}');
+      delete allDrafts[skillId];
+      localStorage.setItem(STORAGE_KEYS.DRAFTS, JSON.stringify(allDrafts));
+    } catch (e) {
+      console.error('Failed to clear skill draft', e);
+    }
+  },
+
   // Export / Backup
   exportData(): string {
     const data = {
       settings: this.getSettings(),
       favorites: this.getFavorites(),
       history: this.getHistory(),
+      notes: this.getNotes(),
       exportedAt: new Date().toISOString(),
       app: 'AgroIntel PRO',
     };
@@ -140,6 +236,9 @@ export const storageService = {
       }
       if (Array.isArray(parsed.history)) {
         localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(parsed.history));
+      }
+      if (Array.isArray(parsed.notes)) {
+        localStorage.setItem(STORAGE_KEYS.NOTES, JSON.stringify(parsed.notes));
       }
       return true;
     } catch (e) {

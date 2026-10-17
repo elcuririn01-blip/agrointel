@@ -7,6 +7,7 @@ import {
   History,
   Bookmark,
   Settings,
+  FileText,
   X,
   UserCheck,
   ChevronRight,
@@ -120,6 +121,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
                 <span className="text-[11px] bg-amber-500/20 text-[#FBBF24] px-2 py-0.5 rounded-md font-mono font-bold">
                   75 IA
+                </span>
+              </NavLink>
+
+              <NavLink
+                to="/notes"
+                onClick={onCloseMobile}
+                className={({ isActive }) =>
+                  `flex items-center justify-between px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all ${
+                    isActive
+                      ? 'bg-emerald-500/15 text-[#34D399] font-bold'
+                      : 'text-[#CBD5E1] hover:text-white hover:bg-emerald-500/10'
+                  }`
+                }
+              >
+                <div className="flex items-center gap-2.5">
+                  <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span>Anotações de Campo</span>
+                </div>
+                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.2 rounded font-mono">
+                  Offline
                 </span>
               </NavLink>
             </div>

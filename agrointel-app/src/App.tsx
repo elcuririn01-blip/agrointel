@@ -8,6 +8,7 @@ import { AgentsCatalogView } from './views/AgentsCatalogView';
 import { AgentDetailView } from './views/AgentDetailView';
 import { HistoryView } from './views/HistoryView';
 import { FavoritesView } from './views/FavoritesView';
+import { NotesView } from './views/NotesView';
 import { SettingsView } from './views/SettingsView';
 
 export function App() {
@@ -20,6 +21,7 @@ export function App() {
           <Route path="skills/:skillId" element={<SkillExecutionView />} />
           <Route path="agents" element={<AgentsCatalogView />} />
           <Route path="agents/:agentId" element={<AgentDetailView />} />
+          <Route path="notes" element={<NotesView />} />
           <Route path="history" element={<HistoryView />} />
           <Route path="favorites" element={<FavoritesView />} />
           <Route path="settings" element={<SettingsView />} />

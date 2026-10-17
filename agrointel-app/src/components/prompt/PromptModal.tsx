@@ -7,8 +7,11 @@ import {
   X,
   FileCode,
   Terminal,
+  BookmarkPlus,
+  BookmarkCheck,
 } from 'lucide-react';
 import { promptEngine } from '../../services/promptEngine';
+import { storageService } from '../../services/storageService';
 import { Skill, UserSettings } from '../../types';
 
 interface PromptModalProps {
@@ -32,6 +35,7 @@ export const PromptModal: React.FC<PromptModalProps> = ({
     settings.defaultModel || 'claude'
   );
   const [hasCopied, setHasCopied] = useState(false);
+  const [hasSavedNote, setHasSavedNote] = useState(false);
 
   if (!isOpen) return null;
 
@@ -51,6 +55,26 @@ export const PromptModal: React.FC<PromptModalProps> = ({
     } catch (err) {
       console.error('Failed to copy to clipboard', err);
     }
+  };
+
+  const handleSaveNote = () => {
+    const title = inputs.propriedade
+      ? `${skill.name} - ${inputs.propriedade}`
+      : `${skill.name} (${new Date().toLocaleDateString('pt-BR')})`;
+
+    storageService.saveNote({
+      title,
+      content: promptText,
+      category: skill.category,
+      farmOrClient: inputs.propriedade || inputs.produtor || '',
+      culture: inputs.cultura || '',
+      sourceSkillId: skill.id,
+      sourceSkillName: skill.name,
+      tags: [skill.categoryLabel, inputs.cultura || 'Geral'].filter(Boolean),
+    });
+
+    setHasSavedNote(true);
+    setTimeout(() => setHasSavedNote(false), 3000);
   };
 
   const handleDownload = () => {
@@ -146,13 +170,35 @@ export const PromptModal: React.FC<PromptModalProps> = ({
             </div>
           </div>
 
-          <button
-            onClick={handleDownload}
-            className="btn-agro-secondary py-1.5 px-3 text-xs"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span>Baixar (.md)</span>
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleSaveNote}
+              className={`btn-agro-secondary py-1.5 px-3 text-xs transition-all ${
+                hasSavedNote ? 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300' : ''
+              }`}
+              title="Salva este comando diretamente nas suas anotações no celular"
+            >
+              {hasSavedNote ? (
+                <>
+                  <BookmarkCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Salvo no Celular!</span>
+                </>
+              ) : (
+                <>
+                  <BookmarkPlus className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Salvar nas Anotações</span>
+                </>
+              )}
+            </button>
+
+            <button
+              onClick={handleDownload}
+              className="btn-agro-secondary py-1.5 px-3 text-xs"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Baixar (.md)</span>
+            </button>
+          </div>
         </div>
 
         {/* Terminal Code View */}

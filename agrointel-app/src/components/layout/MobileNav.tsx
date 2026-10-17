@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Home, Layers, Bot, History, Settings } from 'lucide-react';
+import { Home, Layers, Bot, FileText, Settings } from 'lucide-react';
 
 export const MobileNav: React.FC = () => {
   const tabs = [
     { to: '/', label: 'Início', icon: Home },
     { to: '/skills', label: 'Skills', icon: Layers },
     { to: '/agents', label: 'Agentes', icon: Bot },
-    { to: '/history', label: 'Histórico', icon: History },
+    { to: '/notes', label: 'Anotações', icon: FileText },
     { to: '/settings', label: 'Ajustes', icon: Settings },
   ];
 
