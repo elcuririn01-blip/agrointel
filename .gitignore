@@ -20,3 +20,4 @@ Thumbs.db
 
 # Vercel output
 dist_vercel/
+agrointel-app/dist_vercel/

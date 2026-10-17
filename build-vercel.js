@@ -2,28 +2,31 @@ const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
-console.log('=== INICIANDO BUILD PARA VERCEL ===');
+console.log('=== INICIANDO BUILD UNIFICADO AGROINTEL PRO ===');
+console.log('Diretório de execução:', process.cwd());
 
-// 1. Install & Build React app inside agrointel-app
-console.log('1. Instalando e compilando agrointel-app...');
-execSync('npm --prefix agrointel-app install && npm --prefix agrointel-app run build', {
-  stdio: 'inherit'
-});
+// Detect context
+const isInsideApp = fs.existsSync(path.join(process.cwd(), 'vite.config.ts'));
+const rootDir = isInsideApp ? path.resolve(process.cwd(), '..') : process.cwd();
+const appDir = isInsideApp ? process.cwd() : path.join(process.cwd(), 'agrointel-app');
 
-// 2. Prepare unified output directory 'dist_vercel'
-const outDir = path.join(__dirname, 'dist_vercel');
-console.log('2. Criando diretório unificado de saída:', outDir);
+console.log('Root dir:', rootDir);
+console.log('App dir:', appDir);
 
+// 1. Build React app
+console.log('1. Compilando o AgroIntel Web App (React 19 + TypeScript + Vite)...');
+execSync('npm run build', { cwd: appDir, stdio: 'inherit' });
+
+// 2. Output directory
+const outDir = path.join(process.cwd(), 'dist_vercel');
+console.log('2. Preparando diretório de saída:', outDir);
 if (fs.existsSync(outDir)) {
   fs.rmSync(outDir, { recursive: true, force: true });
 }
 fs.mkdirSync(outDir, { recursive: true });
 
-// 3. Copy Sales Page files to root of outDir
-console.log('3. Copiando Página de Vendas (index.html e assets)...');
-fs.copyFileSync(path.join(__dirname, 'index.html'), path.join(outDir, 'index.html'));
-
 function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
   fs.mkdirSync(dest, { recursive: true });
   const entries = fs.readdirSync(src, { withFileTypes: true });
   for (const entry of entries) {
@@ -37,14 +40,48 @@ function copyDir(src, dest) {
   }
 }
 
-if (fs.existsSync(path.join(__dirname, 'assets'))) {
-  copyDir(path.join(__dirname, 'assets'), path.join(outDir, 'assets'));
+// 3. Copy Landing Page
+console.log('3. Copiando Página de Vendas (index.html e assets)...');
+let salesIndex = path.join(rootDir, 'index.html');
+let salesAssets = path.join(rootDir, 'assets');
+
+if (!fs.existsSync(salesIndex) || fs.readFileSync(salesIndex, 'utf8').includes('id="root"')) {
+  salesIndex = path.join(appDir, 'landing', 'index.html');
+  salesAssets = path.join(appDir, 'landing', 'assets');
 }
 
-// 4. Copy React app build to outDir/app
-console.log('4. Copiando AgroIntel PRO Web App para outDir/app...');
-const appDist = path.join(__dirname, 'agrointel-app', 'dist');
+if (!fs.existsSync(salesIndex) && fs.existsSync(path.join(appDir, 'landing', 'index.html'))) {
+  salesIndex = path.join(appDir, 'landing', 'index.html');
+  salesAssets = path.join(appDir, 'landing', 'assets');
+}
+
+if (fs.existsSync(salesIndex)) {
+  fs.copyFileSync(salesIndex, path.join(outDir, 'index.html'));
+  console.log('index.html da página de vendas copiado com sucesso.');
+} else {
+  console.error('ERRO: Não foi possível localizar o index.html da página de vendas.');
+}
+
+if (fs.existsSync(salesAssets)) {
+  copyDir(salesAssets, path.join(outDir, 'assets'));
+  console.log('assets da página de vendas copiados com sucesso.');
+}
+
+// 4. Copy React app dist to outDir/app
+console.log('4. Copiando AgroIntel Web App para dist_vercel/app...');
+const appDist = path.join(appDir, 'dist');
 const targetAppDir = path.join(outDir, 'app');
 copyDir(appDist, targetAppDir);
 
-console.log('=== BUILD DEPLOY UNIFICADO CONCLUÍDO COM SUCESSO! ===');
+// 5. Also sync dist_vercel to parent if running inside appDir
+if (isInsideApp && rootDir !== appDir) {
+  try {
+    const rootOutDir = path.join(rootDir, 'dist_vercel');
+    if (fs.existsSync(rootOutDir)) fs.rmSync(rootOutDir, { recursive: true, force: true });
+    copyDir(outDir, rootOutDir);
+  } catch (e) {
+    // ignore
+  }
+}
+
+console.log('=== BUILD UNIFICADO CONCLUÍDO COM SUCESSO! ===');
